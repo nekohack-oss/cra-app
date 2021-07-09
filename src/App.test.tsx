@@ -1,9 +1,15 @@
 import React from 'react'
-import { render, screen } from '@testing-library/react'
+import renderer from 'react-test-renderer'
+import { render } from '@testing-library/react'
+
 import App from './App'
 
-test('renders learn react link', () => {
-    render(<App />)
-    const linkElement = screen.getByText(/learn react/i)
-    expect(linkElement).toBeInTheDocument()
+test('Render component', () => {
+    const component = renderer.create(<App />)
+    expect(component).toMatchSnapshot()
+})
+
+test('Confirm text', () => {
+    const component = render(<App />)
+    expect(component.getAllByText('Learn React')).toHaveLength(1)
 })
